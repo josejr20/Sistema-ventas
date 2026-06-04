@@ -10,3 +10,4 @@
 *.swo
 .env
 *.env.*
+.env.example
