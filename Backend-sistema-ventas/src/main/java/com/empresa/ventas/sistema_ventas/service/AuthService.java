@@ -141,7 +141,7 @@ public class AuthService {
                 .expiresIn(900L)
                 .usuario(AuthResponse.UsuarioInfo.builder()
                         .id(usuario.getId())
-                        .uuid(usuario.getUuid())
+                        .uuid(usuario.getUuid() != null ? usuario.getUuid().toString() : null)
                         .nombre(usuario.getNombre())
                         .apellido(usuario.getApellido())
                         .email(usuario.getEmail())

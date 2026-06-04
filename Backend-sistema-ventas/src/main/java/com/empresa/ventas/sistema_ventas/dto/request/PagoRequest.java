@@ -24,4 +24,5 @@ public class PagoRequest {
     private BigDecimal montoRecibido;
     private String referenciaExterna;
     private String telefonoOrigen;
+    private String numeroOperacion;
 }

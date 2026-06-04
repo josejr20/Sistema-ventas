@@ -24,6 +24,9 @@ public class TipoComprobante {
     @Column(nullable = false)
     private String descripcion;
 
+    @Column(name = "serie_default")
+    private String serieDefault;
+
     @Column(nullable = false)
     private boolean activo = true;
 

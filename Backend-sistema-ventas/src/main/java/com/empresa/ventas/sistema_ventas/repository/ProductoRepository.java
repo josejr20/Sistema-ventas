@@ -14,6 +14,7 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
     Page<Producto> findByCategoriaIdAndActivoTrue(Long categoriaId, Pageable pageable);
     Page<Producto> findByNombreContainingIgnoreCaseAndActivoTrue(String nombre, Pageable pageable);
     boolean existsByCodigoBarras(String barras);
+    boolean existsByCodigo(String codigo);
 
     @Query("SELECT p FROM Producto p WHERE p.activo = true ORDER BY p.nombre ASC")
     List<Producto> findAllActivos();

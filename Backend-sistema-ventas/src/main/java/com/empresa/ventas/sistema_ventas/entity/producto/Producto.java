@@ -1,7 +1,6 @@
 package com.empresa.ventas.sistema_ventas.entity.producto;
 
 import com.empresa.ventas.sistema_ventas.entity.base.BaseEntity;
-import com.empresa.ventas.sistema_ventas.entity.inventario.Inventario;
 import com.empresa.ventas.sistema_ventas.entity.auth.Usuario;
 import jakarta.persistence.*;
 import lombok.*;
@@ -20,11 +19,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Producto {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Producto extends BaseEntity {
     @Column(unique = true, updatable = false)
     private UUID uuid;
 
@@ -43,13 +38,13 @@ public class Producto {
     @Column
     private String imagenUrl;
 
-    @Column(precision = 10, scale = 2, nullable = false)
+    @Column(precision = 12, scale = 2, nullable = false)
     private BigDecimal precioCosto;
 
-    @Column(precision = 10, scale = 2, nullable = false)
+    @Column(precision = 12, scale = 2, nullable = false)
     private BigDecimal precioVenta;
 
-    @Column(precision = 10, scale = 2)
+    @Column(precision = 12, scale = 2)
     private BigDecimal precioMayoreo;
 
     @Column(nullable = false)
@@ -82,7 +77,7 @@ public class Producto {
 
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
-    private Set<Inventario> inventarios = new HashSet<>();
+    private Set<com.empresa.ventas.sistema_ventas.entity.inventario.Inventario> inventarios = new HashSet<>();
 
     @PrePersist
     public void prePersist() {

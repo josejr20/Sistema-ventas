@@ -1,5 +1,6 @@
 package com.empresa.ventas.sistema_ventas.config;
 
+import com.empresa.ventas.sistema_ventas.security.jwt.JwtAuthenticationEntryPoint;
 import com.empresa.ventas.sistema_ventas.security.jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

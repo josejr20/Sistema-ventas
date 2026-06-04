@@ -73,9 +73,9 @@ public class ProductoService {
                 .precioCosto(request.getPrecioCosto())
                 .precioVenta(request.getPrecioVenta())
                 .precioMayoreo(request.getPrecioMayoreo())
-                .igvIncluido(request.isIgvIncluido())
-                .afectoIgv(request.isAfectoIgv())
-                .destacado(request.isDestacado())
+                .igvIncluido(request.getIgvIncluido() != null ? request.getIgvIncluido() : true)
+                .afectoIgv(request.getAfectoIgv() != null ? request.getAfectoIgv() : true)
+                .destacado(request.getDestacado() != null ? request.getDestacado() : false)
                 .activo(true)
                 .build();
 
@@ -103,9 +103,9 @@ public class ProductoService {
         producto.setPrecioCosto(request.getPrecioCosto());
         producto.setPrecioVenta(request.getPrecioVenta());
         producto.setPrecioMayoreo(request.getPrecioMayoreo());
-        producto.setIgvIncluido(request.isIgvIncluido());
-        producto.setAfectoIgv(request.isAfectoIgv());
-        producto.setDestacado(request.isDestacado());
+        producto.setIgvIncluido(request.getIgvIncluido() != null ? request.getIgvIncluido() : true);
+        producto.setAfectoIgv(request.getAfectoIgv() != null ? request.getAfectoIgv() : true);
+        producto.setDestacado(request.getDestacado() != null ? request.getDestacado() : false);
 
         return productoRepository.save(producto);
     }

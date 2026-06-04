@@ -80,6 +80,11 @@ public class Usuario extends BaseEntity implements UserDetails {
         return email;
     }
 
+    @Override
+    public String getPassword() {
+        return passwordHash;
+    }
+
     public boolean isAccountNonExpired() {
         return true;
     }

@@ -1,13 +1,15 @@
 package com.empresa.ventas.sistema_ventas.dto.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class AuthResponse {
     private String accessToken;
     private String refreshToken;
@@ -18,13 +20,14 @@ public class AuthResponse {
     @Data
     @NoArgsConstructor
     @AllArgsConstructor
+    @Builder
     public static class UsuarioInfo {
         private Long id;
         private String uuid;
         private String nombre;
         private String apellido;
         private String email;
-        private List<String> roles;
-        private List<String> permisos;
+        private Set<String> roles;
+        private Set<String> permisos;
     }
 }

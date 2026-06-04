@@ -7,7 +7,6 @@ import com.empresa.ventas.sistema_ventas.entity.auth.Usuario;
 import com.empresa.ventas.sistema_ventas.entity.cliente.Cliente;
 import com.empresa.ventas.sistema_ventas.entity.inventario.Almacen;
 import com.empresa.ventas.sistema_ventas.entity.pago.EstadoPago;
-import com.empresa.ventas.sistema_ventas.entity.pago.EstadoPago;
 import com.empresa.ventas.sistema_ventas.entity.producto.Producto;
 import com.empresa.ventas.sistema_ventas.entity.venta.DetalleVenta;
 import com.empresa.ventas.sistema_ventas.entity.venta.EstadoVenta;
@@ -41,6 +40,7 @@ public class VentaService {
     private final AlmacenRepository almacenRepository;
     private final EstadoVentaRepository estadoVentaRepository;
     private final PagoRepository pagoRepository;
+    private final EstadoPagoRepository estadoPagoRepository;
     private final InventarioService inventarioService;
     private final NumeroVentaGenerator numeroVentaGenerator;
 
