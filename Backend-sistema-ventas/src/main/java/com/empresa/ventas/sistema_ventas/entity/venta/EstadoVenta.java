@@ -13,11 +13,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class EstadoVenta {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class EstadoVenta extends BaseEntity {
     @Column(unique = true, nullable = false, length = 20)
     private String codigo;
 
@@ -25,6 +21,7 @@ public class EstadoVenta {
     private String descripcion;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
     @OneToMany(mappedBy = "estadoVenta")

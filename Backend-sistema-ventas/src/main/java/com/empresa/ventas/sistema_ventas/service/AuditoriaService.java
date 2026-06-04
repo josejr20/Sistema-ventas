@@ -1,7 +1,6 @@
 package com.empresa.ventas.sistema_ventas.service;
 
 import com.empresa.ventas.sistema_ventas.entity.auditoria.Auditoria;
-import com.empresa.ventas.sistema_ventas.entity.auth.Usuario;
 import com.empresa.ventas.sistema_ventas.repository.AuditoriaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,7 +23,7 @@ public class AuditoriaService {
                           HttpServletRequest request) {
         try {
             Auditoria auditoria = Auditoria.builder()
-                    .usuario(usuarioId != null ? Usuario.builder().id(usuarioId).build() : null)
+                    .usuarioId(usuarioId)
                     .accion(accion)
                     .modulo(modulo)
                     .tablaAfectada(tablaAfectada)
@@ -34,7 +33,6 @@ public class AuditoriaService {
                     .ipAddress(getClientIp(request))
                     .userAgent(request != null ? request.getHeader("User-Agent") : null)
                     .exitoso(true)
-                    .createdAt(LocalDateTime.now())
                     .build();
 
             auditoriaRepository.save(auditoria);
@@ -47,7 +45,7 @@ public class AuditoriaService {
                                String registroId, String mensaje, HttpServletRequest request) {
         try {
             Auditoria auditoria = Auditoria.builder()
-                    .usuario(usuarioId != null ? Usuario.builder().id(usuarioId).build() : null)
+                    .usuarioId(usuarioId)
                     .accion(accion)
                     .modulo(modulo)
                     .tablaAfectada(tablaAfectada)
@@ -56,7 +54,6 @@ public class AuditoriaService {
                     .mensaje(mensaje)
                     .ipAddress(getClientIp(request))
                     .userAgent(request != null ? request.getHeader("User-Agent") : null)
-                    .createdAt(LocalDateTime.now())
                     .build();
 
             auditoriaRepository.save(auditoria);

@@ -25,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Slf4j
@@ -41,6 +40,7 @@ public class VentaService {
     private final EstadoVentaRepository estadoVentaRepository;
     private final PagoRepository pagoRepository;
     private final EstadoPagoRepository estadoPagoRepository;
+    private final UsuarioRepository usuarioRepository;
     private final InventarioService inventarioService;
     private final NumeroVentaGenerator numeroVentaGenerator;
 
@@ -56,7 +56,7 @@ public class VentaService {
                 .uuid(UUID.randomUUID())
                 .numeroVenta(numeroVentaGenerator.generarNumeroVenta())
                 .cliente(clienteRepository.findById(request.getClienteId()).orElse(null))
-                .usuario(Usuario.builder().id(usuarioId).build())
+                .usuario(usuarioRepository.findById(usuarioId).orElseThrow())
                 .almacen(almacen)
                 .estadoVenta(estadoPendiente)
                 .moneda(request.getMoneda() != null ? request.getMoneda() : "PEN")

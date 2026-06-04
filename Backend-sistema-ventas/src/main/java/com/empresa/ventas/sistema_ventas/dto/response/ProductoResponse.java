@@ -1,18 +1,20 @@
 package com.empresa.ventas.sistema_ventas.dto.response;
 
+import java.math.BigDecimal;
+
 import com.empresa.ventas.sistema_ventas.entity.producto.Categoria;
 import com.empresa.ventas.sistema_ventas.entity.producto.Marca;
 import com.empresa.ventas.sistema_ventas.entity.producto.UnidadMedida;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.math.BigDecimal;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductoResponse {
-    private Long id;
+    private Integer id;
     private String uuid;
     private String codigo;
     private String codigoBarras;

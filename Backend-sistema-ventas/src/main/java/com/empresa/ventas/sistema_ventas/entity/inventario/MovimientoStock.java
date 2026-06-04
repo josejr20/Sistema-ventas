@@ -1,12 +1,10 @@
 package com.empresa.ventas.sistema_ventas.entity.inventario;
 
 import com.empresa.ventas.sistema_ventas.entity.base.BaseEntity;
-import com.empresa.ventas.sistema_ventas.entity.auth.Usuario;
 import com.empresa.ventas.sistema_ventas.entity.producto.Producto;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "movimiento_stock")
@@ -28,25 +26,23 @@ public class MovimientoStock extends BaseEntity {
     @JoinColumn(name = "tipo_movimiento_id", nullable = false)
     private TipoMovimientoStock tipoMovimiento;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 3)
     private BigDecimal cantidad;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 3)
     private BigDecimal stockAnterior;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 3)
     private BigDecimal stockPosterior;
 
-    @Column(length = 50)
+    @Column(name = "referencia_tipo", length = 20)
     private String referenciaTipo;
 
-    @Column
+    @Column(name = "referencia_id")
     private Long referenciaId;
 
-    @Column
     private String motivo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @Column(name = "usuario_id")
+    private Long usuarioId;
 }

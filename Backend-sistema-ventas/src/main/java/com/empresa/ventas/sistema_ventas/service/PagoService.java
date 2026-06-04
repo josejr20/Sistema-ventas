@@ -48,7 +48,6 @@ public class PagoService {
                 .referenciaPasarela(request.getReferenciaExterna())
                 .numeroOperacion(request.getNumeroOperacion())
                 .telefonoOrigen(request.getTelefonoOrigen())
-                .fechaPago(LocalDateTime.now())
                 .build();
 
         return pagoRepository.save(pago);

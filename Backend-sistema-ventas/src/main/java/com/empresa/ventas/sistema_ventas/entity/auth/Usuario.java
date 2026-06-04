@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
@@ -20,39 +21,39 @@ import java.util.UUID;
 @AllArgsConstructor
 @Builder
 public class Usuario extends BaseEntity implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(unique = true, nullable = false, updatable = false)
     private UUID uuid;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 100)
     private String apellido;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 150)
     private String email;
 
-    @Column(nullable = false)
+    @Column(name = "password_hash", nullable = false)
     private String passwordHash;
 
+    @Column(length = 15)
     private String dni;
 
+    @Column(length = 15)
     private String telefono;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
-    @Column(nullable = false)
-    private boolean bloqueado = false;
+    private LocalDateTime ultimoLogin;
 
-    @Column(nullable = false)
+    @Builder.Default
     private int intentosFallidos = 0;
 
-    private LocalDateTime ultimoLogin;
+    @Column(nullable = false)
+    @Builder.Default
+    private boolean bloqueado = false;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -63,6 +64,7 @@ public class Usuario extends BaseEntity implements UserDetails {
     @Builder.Default
     private Set<Rol> roles = new HashSet<>();
 
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Set<GrantedAuthority> authorities = new HashSet<>();
         for (Rol rol : roles) {
@@ -76,6 +78,7 @@ public class Usuario extends BaseEntity implements UserDetails {
         return authorities;
     }
 
+    @Override
     public String getUsername() {
         return email;
     }
@@ -85,18 +88,22 @@ public class Usuario extends BaseEntity implements UserDetails {
         return passwordHash;
     }
 
+    @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    @Override
     public boolean isAccountNonLocked() {
         return !bloqueado;
     }
 
+    @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    @Override
     public boolean isEnabled() {
         return activo;
     }

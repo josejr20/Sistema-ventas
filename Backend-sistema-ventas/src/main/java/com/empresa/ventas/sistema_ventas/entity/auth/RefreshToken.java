@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class RefreshToken {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, unique = true)
     private String token;
@@ -30,6 +30,7 @@ public class RefreshToken {
     private LocalDateTime expiraAt;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean revocado = false;
 
     @Column

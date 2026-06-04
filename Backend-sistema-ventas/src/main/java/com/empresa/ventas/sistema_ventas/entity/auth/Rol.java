@@ -16,7 +16,7 @@ import java.util.Set;
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true, nullable = false)
     private String nombre;
@@ -25,6 +25,7 @@ public class Rol {
     private String descripcion;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
     @ManyToMany(mappedBy = "roles")

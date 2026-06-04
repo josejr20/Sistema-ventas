@@ -18,7 +18,7 @@ import java.util.UUID;
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true, updatable = false)
     private UUID uuid;
@@ -58,6 +58,7 @@ public class Cliente {
     private String numeroDocumento;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
     @Column(nullable = false, updatable = false)

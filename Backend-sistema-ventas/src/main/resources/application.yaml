@@ -2,13 +2,13 @@ spring:
   application:
     name: sistema-ventas
   datasource:
-    url: jdbc:postgresql://localhost:5432/sistema_ventas
+    url: jdbc:postgresql://localhost:5432/ventas_db
     username: postgres
-    password: postgres
+    password: jose20
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     show-sql: true
     open-in-view: false
     properties:
@@ -16,8 +16,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
   flyway:
-    enabled: true
-    baseline-on-migrate: true
+    enabled: false
 
 server:
   port: 8080

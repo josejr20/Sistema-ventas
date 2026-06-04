@@ -16,7 +16,7 @@ import java.util.Set;
 public class Marca {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true, nullable = false)
     private String nombre;
@@ -28,6 +28,7 @@ public class Marca {
     private String logoUrl;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
     @OneToMany(mappedBy = "marca")

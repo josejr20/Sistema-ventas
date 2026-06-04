@@ -7,5 +7,5 @@ import java.util.Optional;
 public interface ComprobanteRepository extends JpaRepository<Comprobante, Long> {
     Optional<Comprobante> findByVentaId(Long ventaId);
     Optional<Comprobante> findByNumeroCompleto(String numero);
-    Optional<Comprobante> findTopByTipoComprobanteIdOrderByCorrelativoDesc(Long tipoId);
+    Optional<Comprobante> findTopByTipoComprobanteIdOrderByCorrelativoDesc(Integer tipoId);
 }

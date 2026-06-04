@@ -19,6 +19,6 @@ public interface VentaRepository extends JpaRepository<Venta, Long> {
     @Query("SELECT MAX(v.numeroVenta) FROM Venta v")
     String findMaxNumeroVenta();
 
-    @Query("SELECT SUM(v.total) FROM Venta v WHERE DATE(v.fechaVenta) = CURRENT_DATE AND v.estadoVenta.codigo = 'PAGADO'")
+    @Query("SELECT SUM(v.total) FROM Venta v WHERE CAST(v.fechaVenta AS LocalDate) = CURRENT_DATE AND v.estadoVenta.codigo = 'PAGADO'")
     BigDecimal totalVentasHoy();
 }

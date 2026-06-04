@@ -16,7 +16,7 @@ import java.util.Set;
 public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false)
     private String nombre;
@@ -25,6 +25,7 @@ public class Categoria {
     private String descripcion;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
     @ManyToOne(fetch = FetchType.LAZY)

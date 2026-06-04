@@ -21,11 +21,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Venta {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Venta extends BaseEntity {
     @Column(unique = true, updatable = false)
     private UUID uuid;
 
@@ -48,38 +44,38 @@ public class Venta {
     @JoinColumn(name = "estado_venta_id", nullable = false)
     private EstadoVenta estadoVenta;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal subtotal;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(precision = 12, scale = 2)
+    @Builder.Default
     private BigDecimal descuentoTotal = BigDecimal.ZERO;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(precision = 12, scale = 2)
+    @Builder.Default
     private BigDecimal igv = BigDecimal.ZERO;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal total;
 
-    @Column(nullable = false, length = 3)
+    @Column(length = 3)
+    @Builder.Default
     private String moneda = "PEN";
 
-    @Column(precision = 10, scale = 4)
+    @Column(precision = 8, scale = 4)
+    @Builder.Default
     private BigDecimal tipoCambio = BigDecimal.ONE;
 
-    @Column(nullable = false)
-    private LocalDateTime fechaVenta;
-
-    @Column
     private String observaciones;
 
-    @Column
     private LocalDateTime fechaAnulacion;
 
-    @Column
     private Long anuladoPor;
 
-    @Column
     private String motivoAnulacion;
+
+    @Column(name = "fecha_venta")
+    private LocalDateTime fechaVenta;
 
     @OneToMany(mappedBy = "venta", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
@@ -89,9 +85,6 @@ public class Venta {
     public void prePersist() {
         if (uuid == null) {
             uuid = UUID.randomUUID();
-        }
-        if (fechaVenta == null) {
-            fechaVenta = LocalDateTime.now();
         }
     }
 }

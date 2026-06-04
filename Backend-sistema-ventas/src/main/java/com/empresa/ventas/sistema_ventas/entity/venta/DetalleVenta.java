@@ -13,11 +13,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class DetalleVenta {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class DetalleVenta extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "venta_id", nullable = false)
     private Venta venta;
@@ -26,33 +22,36 @@ public class DetalleVenta {
     @JoinColumn(name = "producto_id", nullable = false)
     private Producto producto;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 3)
     private BigDecimal cantidad;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal precioUnitario;
 
     @Column(precision = 5, scale = 2)
+    @Builder.Default
     private BigDecimal descuentoPorcentaje = BigDecimal.ZERO;
 
-    @Column(precision = 10, scale = 2)
+    @Column(precision = 12, scale = 2)
+    @Builder.Default
     private BigDecimal descuentoMonto = BigDecimal.ZERO;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal precioFinal;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal subtotal;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(precision = 12, scale = 2)
+    @Builder.Default
     private BigDecimal igv = BigDecimal.ZERO;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal total;
 
     @Column(nullable = false)
     private String productoNombre;
 
-    @Column(nullable = false)
+    @Column
     private String productoCodigo;
 }

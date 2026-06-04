@@ -80,11 +80,12 @@ public class AuthService {
                 .passwordHash(request.getPassword())
                 .dni(request.getDni())
                 .telefono(request.getTelefono())
-                .activo(true)
-                .bloqueado(false)
-                .intentosFallidos(0)
                 .roles(Set.of(rolVendedor))
                 .build();
+
+        usuario.setActivo(true);
+        usuario.setBloqueado(false);
+        usuario.setIntentosFallidos(0);
 
         usuario = usuarioRepository.save(usuario);
 

@@ -16,7 +16,7 @@ import java.util.Set;
 public class MetodoPago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true, nullable = false, length = 20)
     private String codigo;
@@ -25,9 +25,11 @@ public class MetodoPago {
     private String descripcion;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean requierePasarela = false;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
     @OneToMany(mappedBy = "metodoPago")

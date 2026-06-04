@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface MovimientoStockRepository extends JpaRepository<MovimientoStock, Long> {
     List<MovimientoStock> findByProductoIdOrderByCreatedAtDesc(Long productoId);
-    List<MovimientoStock> findByReferenciaTypeAndReferenciaId(String tipo, Long id);
+    List<MovimientoStock> findByReferenciaTipoAndReferenciaId(String tipo, Long id);
     Page<MovimientoStock> findByAlmacenId(Long almacenId, Pageable pageable);
 }

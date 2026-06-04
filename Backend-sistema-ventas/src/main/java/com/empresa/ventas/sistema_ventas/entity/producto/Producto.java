@@ -48,15 +48,19 @@ public class Producto extends BaseEntity {
     private BigDecimal precioMayoreo;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean igvIncluido = true;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean afectoIgv = true;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean destacado = false;
 
     @ManyToOne(fetch = FetchType.LAZY)

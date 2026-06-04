@@ -16,7 +16,7 @@ import java.util.Set;
 public class UnidadMedida {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true, nullable = false, length = 10)
     private String codigo;
@@ -28,6 +28,7 @@ public class UnidadMedida {
     private String codigoSunat;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
     @OneToMany(mappedBy = "unidadMedida")

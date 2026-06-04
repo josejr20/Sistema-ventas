@@ -15,7 +15,7 @@ import java.util.Set;
 public class Almacen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false)
     private String nombre;
@@ -27,9 +27,11 @@ public class Almacen {
     private String direccion;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean principal = false;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
     @OneToMany(mappedBy = "almacen")

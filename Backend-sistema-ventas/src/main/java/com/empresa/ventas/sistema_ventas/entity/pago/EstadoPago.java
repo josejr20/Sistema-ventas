@@ -16,7 +16,7 @@ import java.util.Set;
 public class EstadoPago {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true, nullable = false, length = 20)
     private String codigo;
@@ -25,6 +25,7 @@ public class EstadoPago {
     private String descripcion;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
     @OneToMany(mappedBy = "estadoPago")

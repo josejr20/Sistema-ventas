@@ -1,21 +1,20 @@
 package com.empresa.ventas.sistema_ventas.dto.response;
 
-import com.empresa.ventas.sistema_ventas.dto.response.ClienteResponse;
-import com.empresa.ventas.sistema_ventas.dto.response.DetalleVentaResponse;
-import com.empresa.ventas.sistema_ventas.dto.response.PagoResponse;
-import com.empresa.ventas.sistema_ventas.entity.venta.EstadoVenta;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+
+import com.empresa.ventas.sistema_ventas.entity.venta.EstadoVenta;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class VentaResponse {
-    private Long id;
+    private Integer id;
     private String uuid;
     private String numeroVenta;
     private ClienteResponse cliente;
@@ -35,7 +34,7 @@ public class VentaResponse {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class VendedorResponse {
-        private Long id;
+        private Integer id;
         private String nombre;
         private String apellido;
     }

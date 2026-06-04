@@ -1,6 +1,5 @@
 package com.empresa.ventas.sistema_ventas.entity.pago;
 
-import com.empresa.ventas.sistema_ventas.entity.auth.Usuario;
 import com.empresa.ventas.sistema_ventas.entity.base.BaseEntity;
 import com.empresa.ventas.sistema_ventas.entity.venta.Venta;
 import jakarta.persistence.*;
@@ -16,16 +15,12 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Pago {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Pago extends BaseEntity {
     @Column(unique = true, updatable = false)
     private UUID uuid;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "venta_id", nullable = false, unique = true)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "venta_id", nullable = false)
     private Venta venta;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -36,53 +31,46 @@ public class Pago {
     @JoinColumn(name = "estado_pago_id", nullable = false)
     private EstadoPago estadoPago;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal monto;
 
-    @Column(nullable = false, length = 3)
+    @Column(length = 3)
+    @Builder.Default
     private String moneda = "PEN";
 
-    @Column(precision = 10, scale = 2)
+    @Column(precision = 12, scale = 2)
     private BigDecimal montoRecibido;
 
-    @Column(precision = 10, scale = 2)
+    @Column(precision = 12, scale = 2)
     private BigDecimal vuelto;
 
-    @Column
+    @Column(name = "referencia_pasarela")
     private String referenciaPasarela;
 
-    @Column
+    @Column(name = "codigo_autorizacion")
     private String codigoAutorizacion;
 
-    @Column(length = 4)
+    @Column(name = "ultimos_4_digitos", length = 4)
     private String ultimos4Digitos;
 
-    @Column
+    @Column(name = "marca_tarjeta")
     private String marcaTarjeta;
 
-    @Column
+    @Column(name = "numero_operacion")
     private String numeroOperacion;
 
-    @Column
+    @Column(name = "telefono_origen")
     private String telefonoOrigen;
 
-    @Column(nullable = false)
-    private LocalDateTime fechaPago;
-
-    @Column
     private String observaciones;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "usuario_id")
-    private Usuario usuario;
+    @Column(name = "usuario_id")
+    private Long usuarioId;
 
     @PrePersist
     public void prePersist() {
         if (uuid == null) {
             uuid = UUID.randomUUID();
-        }
-        if (fechaPago == null) {
-            fechaPago = LocalDateTime.now();
         }
     }
 }

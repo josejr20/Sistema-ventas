@@ -5,7 +5,6 @@ import com.empresa.ventas.sistema_ventas.entity.venta.Venta;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comprobantes", uniqueConstraints = {
@@ -17,11 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Comprobante {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Comprobante extends BaseEntity {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "venta_id", nullable = false, unique = true)
     private Venta venta;
@@ -30,7 +25,7 @@ public class Comprobante {
     @JoinColumn(name = "tipo_comprobante_id", nullable = false)
     private TipoComprobante tipoComprobante;
 
-    @Column(nullable = false, length = 4)
+    @Column(nullable = false, length = 5)
     private String serie;
 
     @Column(nullable = false)
@@ -39,31 +34,31 @@ public class Comprobante {
     @Column(unique = true, nullable = false, length = 20)
     private String numeroCompleto;
 
-    @Column(nullable = false, length = 1)
     private String clienteTipoDoc;
 
-    @Column(nullable = false)
-    private String clienteNombreDoc;
+    private String clienteNumeroDoc;
 
-    @Column
     private String clienteNombre;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    private String clienteDireccion;
+
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal subtotal;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(precision = 12, scale = 2)
+    @Builder.Default
     private BigDecimal descuento = BigDecimal.ZERO;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal igv;
 
-    @Column(nullable = false, precision = 10, scale = 2)
+    @Column(nullable = false, precision = 12, scale = 2)
     private BigDecimal total;
 
-    @Column(length = 20)
+    @Column(length = 30)
+    @Builder.Default
     private String estadoSunat = "PENDIENTE";
 
-    @Column
     private String hashCdr;
 
     @Column(columnDefinition = "TEXT")
@@ -72,25 +67,7 @@ public class Comprobante {
     @Column(columnDefinition = "TEXT")
     private String cdrContent;
 
-    @Column
     private String pdfUrl;
 
-    @Column
     private String qrData;
-
-    @Column
-    private String mensajeSunat;
-
-    @Column
-    private LocalDateTime fechaEnvioSunat;
-
-    @Column
-    private LocalDateTime fechaRespuestaSunat;
-
-    @PrePersist
-    public void prePersist() {
-        if (fechaEnvioSunat == null) {
-            fechaEnvioSunat = LocalDateTime.now();
-        }
-    }
 }

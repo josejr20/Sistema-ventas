@@ -12,23 +12,29 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class ComprobanteService {
 
     private final ComprobanteRepository comprobanteRepository;
     private final TipoComprobanteRepository tipoComprobanteRepository;
 
-    @Transactional
     public Comprobante emitir(Venta venta) {
-        TipoComprobante tipo = tipoComprobanteRepository.findTopByTipoComprobanteIdOrderByCorrelativoDesc(3L)
-                .orElseGet(() -> tipoComprobanteRepository.findByCodigo("03")
-                        .orElseThrow(() -> new ResourceNotFoundException("TipoComprobante", "codigo", "03")));
+        String tipoCodigo = "03";
+        TipoComprobante tipo = tipoComprobanteRepository.findByCodigo(tipoCodigo)
+                .orElseThrow(() -> new ResourceNotFoundException("TipoComprobante", "codigo", tipoCodigo));
 
         int correlativo = 1;
+        Optional<Comprobante> ultimo = comprobanteRepository.findTopByTipoComprobanteIdOrderByCorrelativoDesc(tipo.getId());
+        if (ultimo.isPresent()) {
+            correlativo = ultimo.get().getCorrelativo() + 1;
+        }
+
         String serie = tipo.getSerieDefault() != null ? tipo.getSerieDefault() : "B001";
 
         String numeroCompleto = serie + "-" + String.format("%08d", correlativo);

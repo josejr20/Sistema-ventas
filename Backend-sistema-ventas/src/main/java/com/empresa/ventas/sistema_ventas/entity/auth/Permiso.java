@@ -16,7 +16,7 @@ import java.util.Set;
 public class Permiso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true, nullable = false)
     private String nombre;
@@ -28,6 +28,7 @@ public class Permiso {
     private String modulo;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
     @ManyToMany(mappedBy = "permisos")

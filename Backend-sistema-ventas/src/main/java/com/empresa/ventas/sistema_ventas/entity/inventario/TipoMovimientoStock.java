@@ -15,7 +15,7 @@ import java.util.Set;
 public class TipoMovimientoStock {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(unique = true, nullable = false)
     private String codigo;
@@ -24,6 +24,7 @@ public class TipoMovimientoStock {
     private String descripcion;
 
     @Column(nullable = false)
+    @Builder.Default
     private boolean activo = true;
 
     @OneToMany(mappedBy = "tipoMovimiento")
