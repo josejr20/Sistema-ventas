@@ -1,6 +1,6 @@
 package com.empresa.ventas.sistema_ventas.entity.pago;
 
-import com.empresa.ventas.sistema_ventas.entity.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -24,11 +24,8 @@ public class EstadoPago {
     @Column(nullable = false)
     private String descripcion;
 
-    @Column(nullable = false)
-    @Builder.Default
-    private boolean activo = true;
-
     @OneToMany(mappedBy = "estadoPago")
+    @JsonIgnore
     @Builder.Default
     private Set<Pago> pagos = new HashSet<>();
 }

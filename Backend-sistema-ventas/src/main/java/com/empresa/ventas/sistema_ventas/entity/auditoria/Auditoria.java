@@ -29,10 +29,10 @@ public class Auditoria extends BaseEntity {
     @Column(name = "registro_id")
     private String registroId;
 
-    @Column(columnDefinition = "jsonb")
+    @Column(columnDefinition = "TEXT")
     private String datosAnteriores;
 
-    @Column(columnDefinition = "jsonb")
+    @Column(columnDefinition = "TEXT")
     private String datosNuevos;
 
     @Column(name = "ip_address")

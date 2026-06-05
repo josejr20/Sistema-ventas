@@ -1,6 +1,6 @@
 package com.empresa.ventas.sistema_ventas.entity.cliente;
 
-import com.empresa.ventas.sistema_ventas.entity.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -24,11 +24,8 @@ public class TipoDocumento {
     @Column(nullable = false)
     private String descripcion;
 
-    @Column(nullable = false)
-    @Builder.Default
-    private boolean activo = true;
-
     @OneToMany(mappedBy = "tipoDocumento")
+    @JsonIgnore
     @Builder.Default
     private Set<Cliente> clientes = new HashSet<>();
 }

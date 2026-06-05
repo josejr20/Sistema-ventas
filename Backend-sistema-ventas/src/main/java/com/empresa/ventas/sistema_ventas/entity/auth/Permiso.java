@@ -1,6 +1,7 @@
 package com.empresa.ventas.sistema_ventas.entity.auth;
 
 import com.empresa.ventas.sistema_ventas.entity.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -32,6 +33,7 @@ public class Permiso {
     private boolean activo = true;
 
     @ManyToMany(mappedBy = "permisos")
+    @JsonIgnore
     @Builder.Default
     private Set<Rol> roles = new HashSet<>();
 }

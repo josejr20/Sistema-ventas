@@ -1,6 +1,6 @@
 package com.empresa.ventas.sistema_ventas.entity.producto;
 
-import com.empresa.ventas.sistema_ventas.entity.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -27,11 +27,8 @@ public class UnidadMedida {
     @Column
     private String codigoSunat;
 
-    @Column(nullable = false)
-    @Builder.Default
-    private boolean activo = true;
-
     @OneToMany(mappedBy = "unidadMedida")
+    @JsonIgnore
     @Builder.Default
     private Set<Producto> productos = new HashSet<>();
 }

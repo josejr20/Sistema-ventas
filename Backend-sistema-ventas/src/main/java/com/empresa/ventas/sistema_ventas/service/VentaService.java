@@ -55,7 +55,10 @@ public class VentaService {
         Venta venta = Venta.builder()
                 .uuid(UUID.randomUUID())
                 .numeroVenta(numeroVentaGenerator.generarNumeroVenta())
-                .cliente(clienteRepository.findById(request.getClienteId()).orElse(null))
+                .fechaVenta(LocalDateTime.now())
+                .cliente(request.getClienteId() != null
+                        ? clienteRepository.findById(request.getClienteId()).orElse(null)
+                        : null)
                 .usuario(usuarioRepository.findById(usuarioId).orElseThrow())
                 .almacen(almacen)
                 .estadoVenta(estadoPendiente)
@@ -85,7 +88,16 @@ public class VentaService {
 
             BigDecimal igvLinea = BigDecimal.ZERO;
             if (producto.isAfectoIgv()) {
-                igvLinea = subtotalLinea.multiply(BigDecimal.valueOf(0.18)).setScale(2, RoundingMode.HALF_UP);
+                if (producto.isIgvIncluido()) {
+                    // Precio YA incluye IGV → extraer IGV (base imponible = precio × 100/118)
+                    igvLinea = subtotalLinea
+                            .multiply(BigDecimal.valueOf(18))
+                            .divide(BigDecimal.valueOf(118), 2, RoundingMode.HALF_UP);
+                } else {
+                    // Precio NO incluye IGV → añadir IGV encima
+                    igvLinea = subtotalLinea.multiply(BigDecimal.valueOf(0.18))
+                            .setScale(2, RoundingMode.HALF_UP);
+                }
             }
 
             BigDecimal totalLinea = subtotalLinea.add(igvLinea);

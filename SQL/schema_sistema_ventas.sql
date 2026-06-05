@@ -624,6 +624,76 @@ INSERT INTO almacenes (nombre, descripcion, principal) VALUES
 ('Almacén Principal', 'Almacén central de la empresa', TRUE);
 
 -- ==========================================================
+-- COMPLEMENTOS DE COLUMNAS FALTANTES (compatibilidad con entidades Java)
+-- ==========================================================
+
+-- Completar estado_venta (faltan activo, created_at, updated_at)
+ALTER TABLE estado_venta
+    ADD COLUMN IF NOT EXISTS activo     BOOLEAN   DEFAULT TRUE,
+    ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT NOW(),
+    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT NOW();
+
+-- Completar detalle_venta (faltan created_at, updated_at)
+ALTER TABLE detalle_venta
+    ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT NOW(),
+    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT NOW();
+
+-- Completar inventario (falta created_at)
+ALTER TABLE inventario
+    ADD COLUMN IF NOT EXISTS created_at TIMESTAMP DEFAULT NOW();
+
+-- Completar movimiento_stock (falta updated_at)
+ALTER TABLE movimiento_stock
+    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT NOW();
+
+-- Completar auditoria (falta updated_at)
+ALTER TABLE auditoria
+    ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT NOW();
+
+-- Completar tablas de catálogo
+ALTER TABLE tipo_documento       ADD COLUMN IF NOT EXISTS activo BOOLEAN DEFAULT TRUE;
+ALTER TABLE tipo_movimiento_stock ADD COLUMN IF NOT EXISTS activo BOOLEAN DEFAULT TRUE;
+ALTER TABLE tipo_comprobante     ADD COLUMN IF NOT EXISTS activo BOOLEAN DEFAULT TRUE;
+
+-- Corregir correlativo a INTEGER en comprobantes
+ALTER TABLE comprobantes
+    ALTER COLUMN correlativo TYPE INTEGER USING correlativo::INTEGER;
+
+-- Trigger para auditoria updated_at
+CREATE OR REPLACE FUNCTION fn_update_auditoria_timestamp()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.updated_at = NOW();
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_auditoria_updated_at
+    BEFORE UPDATE ON auditoria FOR EACH ROW EXECUTE FUNCTION fn_update_auditoria_timestamp();
+
+-- Trigger para movimiento_stock updated_at
+CREATE TRIGGER trg_movimiento_stock_updated_at
+    BEFORE UPDATE ON movimiento_stock FOR EACH ROW EXECUTE FUNCTION fn_update_inventario_timestamp();
+
+-- Trigger para detalle_venta updated_at
+CREATE TRIGGER trg_detalle_venta_updated_at
+    BEFORE UPDATE ON detalle_venta FOR EACH ROW EXECUTE FUNCTION fn_update_updated_at();
+
+-- Trigger para estado_venta updated_at
+CREATE TRIGGER trg_estado_venta_updated_at
+    BEFORE UPDATE ON estado_venta FOR EACH ROW EXECUTE FUNCTION fn_update_updated_at();
+
+-- ==========================================================
 -- FIN DEL ESQUEMA
 -- 26 tablas | 3 vistas | 6 triggers | índices optimizados
 -- ==========================================================
+
+-- ==========================================================
+-- VERIFICACIÓN POST-CORRECCIONES
+-- ==========================================================
+-- Ejecutar este query para confirmar que todas las columnas existen:
+SELECT table_name, column_name
+FROM information_schema.columns
+WHERE table_schema = 'public'
+AND table_name IN ('estado_venta', 'detalle_venta', 'inventario', 'movimiento_stock', 'auditoria')
+ORDER BY table_name, column_name;

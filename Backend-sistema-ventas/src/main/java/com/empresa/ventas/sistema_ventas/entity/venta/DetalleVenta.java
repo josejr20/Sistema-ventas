@@ -2,6 +2,7 @@ package com.empresa.ventas.sistema_ventas.entity.venta;
 
 import com.empresa.ventas.sistema_ventas.entity.base.BaseEntity;
 import com.empresa.ventas.sistema_ventas.entity.producto.Producto;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.math.BigDecimal;
@@ -16,10 +17,12 @@ import java.math.BigDecimal;
 public class DetalleVenta extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "venta_id", nullable = false)
+    @JsonIgnore
     private Venta venta;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "producto_id", nullable = false)
+    @JsonIgnore
     private Producto producto;
 
     @Column(nullable = false, precision = 12, scale = 3)

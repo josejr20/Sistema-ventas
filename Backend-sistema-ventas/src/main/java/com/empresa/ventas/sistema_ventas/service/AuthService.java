@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,7 @@ public class AuthService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final JwtTokenProvider jwtTokenProvider;
     private final AuthenticationManager authenticationManager;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public AuthResponse login(LoginRequest request) {
@@ -77,7 +79,7 @@ public class AuthService {
                 .nombre(request.getNombre())
                 .apellido(request.getApellido())
                 .email(request.getEmail())
-                .passwordHash(request.getPassword())
+                .passwordHash(passwordEncoder.encode(request.getPassword()))
                 .dni(request.getDni())
                 .telefono(request.getTelefono())
                 .roles(Set.of(rolVendedor))

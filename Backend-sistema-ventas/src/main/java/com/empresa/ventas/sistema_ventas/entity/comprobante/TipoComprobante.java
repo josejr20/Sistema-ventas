@@ -1,6 +1,6 @@
 package com.empresa.ventas.sistema_ventas.entity.comprobante;
 
-import com.empresa.ventas.sistema_ventas.entity.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -27,11 +27,8 @@ public class TipoComprobante {
     @Column(name = "serie_default")
     private String serieDefault;
 
-    @Column(nullable = false)
-    @Builder.Default
-    private boolean activo = true;
-
     @OneToMany(mappedBy = "tipoComprobante")
+    @JsonIgnore
     @Builder.Default
     private Set<Comprobante> comprobantes = new HashSet<>();
 }

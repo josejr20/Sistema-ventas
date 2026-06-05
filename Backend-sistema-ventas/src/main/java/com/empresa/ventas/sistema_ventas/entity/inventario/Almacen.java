@@ -1,5 +1,6 @@
 package com.empresa.ventas.sistema_ventas.entity.inventario;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -35,6 +36,7 @@ public class Almacen {
     private boolean activo = true;
 
     @OneToMany(mappedBy = "almacen")
+    @JsonIgnore
     @Builder.Default
     private Set<Inventario> inventarios = new HashSet<>();
 }

@@ -2,6 +2,7 @@ package com.empresa.ventas.sistema_ventas.controller;
 
 import com.empresa.ventas.sistema_ventas.dto.request.PagoRequest;
 import com.empresa.ventas.sistema_ventas.dto.request.VentaRequest;
+import com.empresa.ventas.sistema_ventas.entity.auth.Usuario;
 import com.empresa.ventas.sistema_ventas.entity.venta.Venta;
 import com.empresa.ventas.sistema_ventas.service.VentaService;
 import com.empresa.ventas.sistema_ventas.util.ApiResponse;
@@ -12,6 +13,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,6 +23,12 @@ import org.springframework.web.bind.annotation.*;
 public class VentaController {
 
     private final VentaService ventaService;
+
+    private Long getUsuarioIdAutenticado() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Usuario usuario = (Usuario) auth.getPrincipal();
+        return usuario.getId();
+    }
 
     @GetMapping
     public ResponseEntity<ApiResponse<PageResponse<Venta>>> listar(
@@ -36,14 +45,16 @@ public class VentaController {
 
     @PostMapping
     public ResponseEntity<ApiResponse<Venta>> crear(@Valid @RequestBody VentaRequest request) {
-        Venta venta = ventaService.crearVenta(request, 1L);
+        Long usuarioId = getUsuarioIdAutenticado();
+        Venta venta = ventaService.crearVenta(request, usuarioId);
         return ResponseEntity.ok(ApiResponse.success(venta));
     }
 
     @PostMapping("/{id}/anular")
     public ResponseEntity<ApiResponse<Venta>> anular(
             @PathVariable Long id, @RequestParam String motivo) {
-        Venta venta = ventaService.anularVenta(id, motivo, 1L);
+        Long usuarioId = getUsuarioIdAutenticado();
+        Venta venta = ventaService.anularVenta(id, motivo, usuarioId);
         return ResponseEntity.ok(ApiResponse.success(venta));
     }
 

@@ -1,5 +1,6 @@
 package com.empresa.ventas.sistema_ventas.entity.inventario;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -23,11 +24,8 @@ public class TipoMovimientoStock {
     @Column(nullable = false)
     private String descripcion;
 
-    @Column(nullable = false)
-    @Builder.Default
-    private boolean activo = true;
-
     @OneToMany(mappedBy = "tipoMovimiento")
+    @JsonIgnore
     @Builder.Default
     private Set<MovimientoStock> movimientos = new HashSet<>();
 }

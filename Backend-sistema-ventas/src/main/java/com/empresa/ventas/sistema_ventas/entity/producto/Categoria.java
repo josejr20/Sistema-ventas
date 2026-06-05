@@ -1,6 +1,7 @@
 package com.empresa.ventas.sistema_ventas.entity.producto;
 
 import com.empresa.ventas.sistema_ventas.entity.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;
@@ -30,13 +31,16 @@ public class Categoria {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "categoria_padre_id")
+    @JsonIgnore
     private Categoria categoriaPadre;
 
     @OneToMany(mappedBy = "categoriaPadre")
+    @JsonIgnore
     @Builder.Default
     private Set<Categoria> subcategorias = new HashSet<>();
 
     @OneToMany(mappedBy = "categoria")
+    @JsonIgnore
     @Builder.Default
     private Set<Producto> productos = new HashSet<>();
 }
