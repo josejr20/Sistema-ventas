@@ -1,0 +1,55 @@
+<div class="sales-page">
+  <header class="page-header">
+    <h1>Mis Ventas</h1>
+    <p class="page-subtitle">Historial de transacciones</p>
+  </header>
+
+  @if (loading()) {
+    <app-loading-spinner message="Cargando ventas..."></app-loading-spinner>
+  } @else if (error()) {
+    <div class="error-state">
+      <p>{{ error() }}</p>
+      <button class="btn-retry" (click)="loadSales()">Reintentar</button>
+    </div>
+  } @else if (sales().length === 0) {
+    <app-empty-state
+      title="Sin ventas"
+      message="Aún no tienes ventas registradas."
+      actionLabel="Ir al catálogo"
+      (action)="goToCatalog()"
+    ></app-empty-state>
+  } @else {
+    <div class="sales-table-wrapper">
+      <table class="sales-table">
+        <thead>
+          <tr>
+            <th>N° Venta</th>
+            <th>Cliente</th>
+            <th>Fecha</th>
+            <th>Total</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (sale of sales(); track sale.id) {
+            <tr>
+              <td class="cell-num">{{ sale.numeroVenta }}</td>
+              <td>{{ sale.cliente?.nombre || 'Consumidor final' }} {{ sale.cliente?.apellido || '' }}</td>
+              <td>{{ sale.fechaVenta | dateFormat:'time' }}</td>
+              <td class="cell-total">{{ sale.total | currency:'PEN' }}</td>
+              <td>
+                <span class="estado-badge {{ getEstadoClass(sale.estadoVenta.codigo) }}">
+                  {{ sale.estadoVenta.descripcion }}
+                </span>
+              </td>
+              <td>
+                <a [routerLink]="['/sale', sale.id]" class="link-action">Ver detalle</a>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

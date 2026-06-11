@@ -1,0 +1,80 @@
+<div class="checkout-page">
+  <header class="checkout-header">
+    <h1>Checkout</h1>
+  </header>
+
+  <div class="checkout-steps">
+    <div class="step active">1. Domicilio</div>
+    <div class="step">2. Pago</div>
+    <div class="step">3. Confirmar</div>
+  </div>
+
+  @if (loading()) {
+    <app-loading-spinner message="Cargando datos del carrito..."></app-loading-spinner>
+  } @else if (cart().length === 0) {
+    <app-empty-state
+      title="Carrito vacío"
+      message="Agrega productos antes de continuar con el checkout."
+      actionLabel="Ir al catálogo"
+      (action)="goToCatalog()"
+    ></app-empty-state>
+  } @else {
+    <form class="checkout-form" (ngSubmit)="submitSale()">
+      <div class="checkout-section">
+        <h2>Datos del cliente</h2>
+        <div class="form-group">
+          <label for="cliente">Cliente (opcional)</label>
+          <select id="cliente" [(ngModel)]="selectedClientId" name="cliente">
+            <option [ngValue]="null">Consumidor final</option>
+            @for (client of clients(); track client.id) {
+              <option [ngValue]="client.id">{{ client.nombre }} {{ client.apellido }}</option>
+            }
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="almacen">Almacén</label>
+          <select id="almacen" [(ngModel)]="selectedWarehouseId" name="almacen" required>
+            @for (w of warehouses(); track w.id) {
+              <option [ngValue]="w.id">{{ w.nombre }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div class="checkout-section">
+        <h2>Resumen del pedido</h2>
+        <div class="cart-summary-checkout">
+          @for (item of cart(); track item.id) {
+            <div class="summary-row">
+              <span>{{ item.nombre }} x{{ item.cantidad }}</span>
+              <span>S/ {{ (item.precio * item.cantidad).toFixed(2) }}</span>
+            </div>
+          }
+          <div class="summary-row total">
+            <span>Total</span>
+            <span>S/ {{ total.toFixed(2) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="checkout-section">
+        <h2>Observaciones</h2>
+        <div class="form-group">
+          <textarea [(ngModel)]="observations" name="observaciones" placeholder="Agrega notas o instrucciones especiales..."></textarea>
+        </div>
+      </div>
+
+      @if (error()) {
+        <div class="error-message">{{ error() }}</div>
+      }
+
+      <button type="submit" class="btn-submit" [disabled]="submitting() || !selectedWarehouseId()">
+        @if (submitting()) {
+          <app-loading-spinner size="small"></app-loading-spinner>
+        } @else {
+          Confirmar venta
+        }
+      </button>
+    </form>
+  }
+</div>

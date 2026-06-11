@@ -1,5 +1,5 @@
 # Arquitectura Backend — Sistema de Ventas
-> **Stack:** Spring Boot 3 · Spring Security 6 · JWT · JPA/Hibernate · PostgreSQL · Lombok · Swagger
+> **Stack:** Spring Boot 3 · Spring Security 6 · JWT · JPA/Hibernate · PostgreSQL · Swagger
 
 ---
 
@@ -58,7 +58,7 @@ El backend sigue una arquitectura en **7 capas estrictas**. Cada capa solo se co
 | `spring-boot-starter-validation` | 3.x | Validar DTOs (`@NotBlank`, `@Email`) |
 | `postgresql` | 42.x | Driver JDBC de PostgreSQL |
 | `jjwt-api` + `jjwt-impl` + `jjwt-jackson` | 0.11.5 | Generar y validar tokens JWT |
-| `lombok` | — | Elimina boilerplate (`@Data`, `@Builder`) |
+| Elimina boilerplate (`@Data`, `@Builder`) |
 | `springdoc-openapi-starter-webmvc-ui` | 2.x | Swagger UI en `/swagger-ui.html` |
 | `mapstruct` | 1.5.x | Convierte Entity ↔ DTO automáticamente |
 
@@ -254,8 +254,8 @@ Backend-sistema-ventas/
 
 **Contenido clave:**
 - `parent`: `spring-boot-starter-parent` versión 3.2.x
-- `dependencies`: Web, Security, JPA, PostgreSQL, JWT (jjwt), Lombok, Validation, SpringDoc (Swagger), MapStruct
-- `build > plugins`: `maven-compiler-plugin` con configuración de Lombok + MapStruct como annotation processors (ambos deben estar juntos en el mismo plugin para que funcionen correctamente)
+- `dependencies`: Web, Security, JPA, PostgreSQL, JWT (jjwt), Validation, SpringDoc (Swagger), MapStruct
+- `build > plugins`: `maven-compiler-plugin` con configuración de MapStruct como annotation processors (ambos deben estar juntos en el mismo plugin para que funcionen correctamente)
 - `properties`: Java 17 como versión de compilación
 
 ---
@@ -428,7 +428,7 @@ app:
 
 ## CAPA: Entity
 
-> **Convención de entidades:** Todas las entidades usan Lombok para eliminar getters/setters/constructores. Todas extienden `BaseEntity` excepto las que tienen IDs compuestos o son tablas pivot.
+> **Convención de entidades:** Todas las entidades usan  para eliminar getters/setters/constructores. Todas extienden `BaseEntity` excepto las que tienen IDs compuestos o son tablas pivot.
 
 ### `entity/base/BaseEntity.java` — Clase base para entidades
 

@@ -1,0 +1,1 @@
+export * from './stock-panel/stock-panel.component';

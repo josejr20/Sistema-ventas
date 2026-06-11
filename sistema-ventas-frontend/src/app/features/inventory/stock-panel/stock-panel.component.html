@@ -1,0 +1,65 @@
+<div class="inventory-page">
+  <header class="page-header">
+    <h1>Inventario</h1>
+    <p class="page-subtitle">Gestión de stock por almacén</p>
+  </header>
+
+  <div class="inventory-controls">
+    <select class="warehouse-select" (change)="onWarehouseChange($event)">
+      <option [value]="null">Todos los almacenes</option>
+      @for (w of warehouses(); track w.id) {
+        <option [value]="w.id">{{ w.nombre }}</option>
+      }
+    </select>
+    <button class="btn-refresh" (click)="loadInventory()">Actualizar</button>
+  </div>
+
+  @if (loading()) {
+    <app-loading-spinner message="Cargando inventario..."></app-loading-spinner>
+  } @else if (error()) {
+    <div class="error-state">
+      <p>{{ error() }}</p>
+      <button class="btn-retry" (click)="loadInventory()">Reintentar</button>
+    </div>
+  } @else if (inventory().length === 0) {
+    <app-empty-state
+      title="Sin datos de inventario"
+      message="No hay registros de inventario para el filtro seleccionado."
+    ></app-empty-state>
+  } @else {
+    <div class="inventory-table-wrapper">
+      <table class="inventory-table">
+        <thead>
+          <tr>
+            <th>Producto ID</th>
+            <th>Almacén ID</th>
+            <th>Stock Actual</th>
+            <th>Stock Mínimo</th>
+            <th>Ubicación</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of inventory(); track item.id) {
+            <tr [class.row-alert]="getStockClass(item) === 'stock-low' || getStockClass(item) === 'stock-zero'">
+              <td>#{{ item.productoId }}</td>
+              <td>#{{ item.almacenId }}</td>
+              <td class="stock-cell">
+                <span class="stock-value {{ getStockClass(item) }}">
+                  {{ item.stockActual }}
+                </span>
+              </td>
+              <td>{{ item.stockMinimo ?? '-' }}</td>
+              <td>{{ item.ubicacion || '-' }}</td>
+              <td>
+                <span class="estado-badge {{ getStockClass(item) }}">
+                  {{ getStockClass(item) === 'stock-zero' ? 'Agotado' : getStockClass(item) === 'stock-low' ? 'Bajo stock' : 'Normal' }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

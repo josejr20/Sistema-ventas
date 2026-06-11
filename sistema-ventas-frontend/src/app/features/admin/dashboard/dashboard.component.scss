@@ -1,0 +1,159 @@
+.dashboard-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .kpi-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+}
+
+.kpi-card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.kpi-icon {
+  font-size: 28px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F5F5F5;
+  border-radius: 12px;
+}
+
+.kpi-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.kpi-value {
+  font-size: 22px;
+  font-weight: 700;
+  color: #000;
+}
+
+.kpi-label {
+  font-size: 13px;
+  color: #666;
+}
+
+.dashboard-section {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+}
+
+.section-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+.recent-table-wrapper {
+  overflow-x: auto;
+}
+
+.recent-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.recent-table th,
+.recent-table td {
+  padding: 12px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #F5F5F5;
+}
+
+.recent-table th {
+  background: #FAFAFA;
+  font-weight: 600;
+  color: #333;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.cell-num {
+  font-weight: 600;
+  color: #000;
+}
+
+.cell-total {
+  font-weight: 700;
+  color: #000;
+}
+
+.estado-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.estado-pendiente {
+  background: #FFF7ED;
+  color: #F59E0B;
+}
+
+.estado-pagado {
+  background: #F0FDF4;
+  color: #22C55E;
+}
+
+.estado-anulado {
+  background: #FFF0F0;
+  color: #E8344E;
+}
+
+.estado-devuelto {
+  background: #EFF6FF;
+  color: #3B82F6;
+}
+
+.error-state {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.error-state p {
+  color: #E8344E;
+  margin: 0 0 16px;
+}
+
+.btn-retry {
+  padding: 10px 24px;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-retry:hover {
+  background: #333;
+}

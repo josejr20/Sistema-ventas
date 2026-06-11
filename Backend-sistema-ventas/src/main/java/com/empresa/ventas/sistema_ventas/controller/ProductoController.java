@@ -1,7 +1,7 @@
 package com.empresa.ventas.sistema_ventas.controller;
 
 import com.empresa.ventas.sistema_ventas.dto.request.ProductoRequest;
-import com.empresa.ventas.sistema_ventas.entity.producto.Producto;
+import com.empresa.ventas.sistema_ventas.dto.response.ProductoResponse;
 import com.empresa.ventas.sistema_ventas.service.ProductoService;
 import com.empresa.ventas.sistema_ventas.util.ApiResponse;
 import com.empresa.ventas.sistema_ventas.util.PageResponse;
@@ -21,34 +21,34 @@ public class ProductoController {
     private final ProductoService productoService;
 
     @GetMapping
-    public ResponseEntity<ApiResponse<PageResponse<Producto>>> listar(
+    public ResponseEntity<ApiResponse<PageResponse<ProductoResponse>>> listar(
             @PageableDefault(size = 20) Pageable pageable) {
-        Page<Producto> productos = productoService.listar(pageable);
+        Page<ProductoResponse> productos = productoService.listar(pageable);
         return ResponseEntity.ok(ApiResponse.success(PageResponse.from(productos)));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ApiResponse<Producto>> buscarPorId(@PathVariable Long id) {
-        Producto producto = productoService.buscarPorId(id);
+    public ResponseEntity<ApiResponse<ProductoResponse>> buscarPorId(@PathVariable Long id) {
+        ProductoResponse producto = productoService.buscarPorId(id);
         return ResponseEntity.ok(ApiResponse.success(producto));
     }
 
     @GetMapping("/barras/{codigo}")
-    public ResponseEntity<ApiResponse<Producto>> buscarPorBarras(@PathVariable String codigo) {
-        Producto producto = productoService.buscarPorBarras(codigo);
+    public ResponseEntity<ApiResponse<ProductoResponse>> buscarPorBarras(@PathVariable String codigo) {
+        ProductoResponse producto = productoService.buscarPorBarras(codigo);
         return ResponseEntity.ok(ApiResponse.success(producto));
     }
 
     @PostMapping
-    public ResponseEntity<ApiResponse<Producto>> crear(@Valid @RequestBody ProductoRequest request) {
-        Producto producto = productoService.crear(request);
+    public ResponseEntity<ApiResponse<ProductoResponse>> crear(@Valid @RequestBody ProductoRequest request) {
+        ProductoResponse producto = productoService.crear(request);
         return ResponseEntity.ok(ApiResponse.success(producto));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ApiResponse<Producto>> actualizar(
+    public ResponseEntity<ApiResponse<ProductoResponse>> actualizar(
             @PathVariable Long id, @Valid @RequestBody ProductoRequest request) {
-        Producto producto = productoService.actualizar(id, request);
+        ProductoResponse producto = productoService.actualizar(id, request);
         return ResponseEntity.ok(ApiResponse.success(producto));
     }
 

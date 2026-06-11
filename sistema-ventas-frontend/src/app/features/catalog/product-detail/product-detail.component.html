@@ -1,0 +1,45 @@
+<div class="product-detail">
+  @if (loading()) {
+    <app-loading-spinner message="Cargando producto..."></app-loading-spinner>
+  } @else if (error() || !product()) {
+    <app-empty-state
+      title="Producto no encontrado"
+      [message]="error() || 'El producto que buscas no existe.'"
+      actionLabel="Volver al catálogo"
+      (action)="goToCatalog()"
+    ></app-empty-state>
+  } @else {
+    <div class="detail-layout">
+      <div class="detail-image">
+        @if (product()!.imagenUrl) {
+          <img [src]="product()!.imagenUrl" [alt]="product()!.nombre" />
+        } @else {
+          <div class="placeholder-detail">📦</div>
+        }
+        @if (product()!.destacado) {
+          <span class="badge-oferta-detail">OFERTA</span>
+        }
+      </div>
+      <div class="detail-info">
+        <h1 class="detail-name">{{ product()!.nombre }}</h1>
+        <p class="detail-category">{{ product()!.categoria?.nombre || 'Sin categoría' }}</p>
+        <div class="detail-pricing">
+          <app-price-display [price]="product()!.precioVenta" [originalPrice]="product()!.precioMayoreo || 0"></app-price-display>
+          <p class="detail-unit">Unidad: {{ product()!.unidadMedida?.descripcion || 'UND' }}</p>
+        </div>
+        <p class="detail-description">{{ product()!.descripcion || 'Sin descripción disponible' }}</p>
+        <div class="detail-stock">
+          Stock disponible: <strong>{{ product()!.stockActual ?? 'Consultar' }}</strong>
+        </div>
+        <div class="detail-actions">
+          <div class="quantity-selector">
+            <button class="qty-btn" (click)="decreaseQuantity()">-</button>
+            <span class="qty-value">{{ quantity() }}</span>
+            <button class="qty-btn" (click)="increaseQuantity()">+</button>
+          </div>
+          <button class="btn-add-cart" (click)="addToCart()">Agregar al carrito</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

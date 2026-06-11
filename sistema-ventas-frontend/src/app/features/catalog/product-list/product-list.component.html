@@ -1,0 +1,53 @@
+<div class="catalog-page">
+  <header class="catalog-header">
+    <h1>Catálogo</h1>
+    <p class="catalog-subtitle">Explora nuestros productos</p>
+  </header>
+
+  @if (loading()) {
+    <app-loading-spinner message="Cargando productos..."></app-loading-spinner>
+  } @else if (error()) {
+    <div class="error-state">
+      <p>{{ error() }}</p>
+      <button class="btn-retry" (click)="loadProducts()">Reintentar</button>
+    </div>
+  } @else if (products().length === 0) {
+    <app-empty-state
+      title="No hay productos"
+      message="Aún no hay productos disponibles en el catálogo."
+      actionLabel="Recargar"
+      (action)="loadProducts()"
+    ></app-empty-state>
+  } @else {
+    <div class="product-grid">
+      @for (product of products(); track product.id) {
+        <a [routerLink]="['/product', product.id]" class="product-card">
+          <div class="product-image">
+            @if (product.imagenUrl) {
+              <img [src]="product.imagenUrl" [alt]="product.nombre" />
+            } @else {
+              <div class="placeholder-image">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                  <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                  <polyline points="21 15 16 10 5 21"></polyline>
+                </svg>
+              </div>
+            }
+            @if (product.destacado) {
+              <span class="badge-oferta">OFERTA</span>
+            }
+          </div>
+          <div class="product-info">
+            <h3 class="product-name">{{ product.nombre | truncate:40 }}</h3>
+            <p class="product-category">{{ product.categoria?.nombre || '' }}</p>
+            <app-price-display [price]="product.precioVenta" [originalPrice]="product.precioMayoreo || 0"></app-price-display>
+            @if (product.stockActual !== undefined) {
+              <span class="stock-indicator" [class.low-stock]="product.stockActual === 0">Stock: {{ product.stockActual }}</span>
+            }
+          </div>
+        </a>
+      }
+    </div>
+  }
+</div>

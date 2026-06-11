@@ -1,0 +1,141 @@
+.inventory-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.inventory-controls {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.warehouse-select {
+  flex: 1;
+  padding: 10px 16px;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  font-size: 14px;
+  background: white;
+}
+
+.btn-refresh {
+  padding: 10px 20px;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-refresh:hover {
+  background: #333;
+}
+
+.inventory-table-wrapper {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.inventory-table th,
+.inventory-table td {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #F5F5F5;
+}
+
+.inventory-table th {
+  background: #FAFAFA;
+  font-weight: 600;
+  color: #333;
+  font-size: 13px;
+}
+
+.inventory-table tbody tr:hover {
+  background: #FAFAFA;
+}
+
+.inventory-table tbody tr.row-alert {
+  background: #FFF5F5;
+}
+
+.stock-cell {
+  font-weight: 700;
+}
+
+.stock-zero {
+  color: #E8344E;
+  animation: pulse 1.5s infinite;
+}
+
+.stock-low {
+  color: #F59E0B;
+}
+
+.stock-ok {
+  color: #22C55E;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.estado-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.estado-pendiente {
+  background: #FFF7ED;
+  color: #F59E0B;
+}
+
+.estado-pagado {
+  background: #F0FDF4;
+  color: #22C55E;
+}
+
+.estado-anulado {
+  background: #FFF0F0;
+  color: #E8344E;
+}
+
+.estado-devuelto {
+  background: #EFF6FF;
+  color: #3B82F6;
+}
+
+.error-state {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.error-state p {
+  color: #E8344E;
+  margin: 0 0 16px;
+}
+
+.btn-retry {
+  padding: 10px 24px;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}

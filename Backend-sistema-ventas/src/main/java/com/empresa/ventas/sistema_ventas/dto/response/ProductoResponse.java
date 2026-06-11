@@ -2,10 +2,6 @@ package com.empresa.ventas.sistema_ventas.dto.response;
 
 import java.math.BigDecimal;
 
-import com.empresa.ventas.sistema_ventas.entity.producto.Categoria;
-import com.empresa.ventas.sistema_ventas.entity.producto.Marca;
-import com.empresa.ventas.sistema_ventas.entity.producto.UnidadMedida;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductoResponse {
-    private Integer id;
+    private Long id;
     private String uuid;
     private String codigo;
     private String codigoBarras;
@@ -28,8 +24,11 @@ public class ProductoResponse {
     private boolean afectoIgv;
     private boolean activo;
     private boolean destacado;
-    private Categoria categoria;
-    private Marca marca;
-    private UnidadMedida unidadMedida;
+    private Long categoriaId;
+    private String nombreCategoria;
+    private Long marcaId;
+    private String nombreMarca;
+    private Long unidadMedidaId;
+    private String nombreUnidadMedida;
     private BigDecimal stockActual;
 }

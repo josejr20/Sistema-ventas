@@ -458,7 +458,7 @@ spring:
 
 | Componente | Estado | Por qué está bien |
 |---|---|---|
-| `pom.xml` | ✅ | Lombok antes que MapStruct en annotation processors (orden correcto) |
+| `pom.xml` | 
 | `SecurityConfig.java` | ✅ | Estilo lambda DSL de Spring Security 6, sin WebSecurityConfigurerAdapter |
 | `JwtTokenProvider.java` | ✅ | `@PostConstruct` correcto, JJWT 0.11.5 bien implementado |
 | `JwtAuthenticationFilter.java` | ✅ | Extiende `OncePerRequestFilter` correctamente |

@@ -1,0 +1,158 @@
+.sales-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.page-header {
+  margin-bottom: 24px;
+}
+
+.page-header h1 {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 4px;
+}
+
+.page-subtitle {
+  font-size: 14px;
+  color: #666;
+  margin: 0;
+}
+
+.sales-table-wrapper {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.sales-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.sales-table th,
+.sales-table td {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid #F5F5F5;
+}
+
+.sales-table th {
+  background: #FAFAFA;
+  font-weight: 600;
+  color: #333;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.sales-table tbody tr:hover {
+  background: #FAFAFA;
+}
+
+.cell-num {
+  font-weight: 600;
+  color: #000;
+}
+
+.cell-total {
+  font-weight: 700;
+  color: #000;
+}
+
+.estado-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.estado-pendiente {
+  background: #FFF7ED;
+  color: #F59E0B;
+}
+
+.estado-pagado {
+  background: #F0FDF4;
+  color: #22C55E;
+}
+
+.estado-anulado {
+  background: #FFF0F0;
+  color: #E8344E;
+}
+
+.estado-devuelto {
+  background: #EFF6FF;
+  color: #3B82F6;
+}
+
+.link-action {
+  color: #E8344E;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.link-action:hover {
+  text-decoration: underline;
+}
+
+.error-state {
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.error-state p {
+  color: #E8344E;
+  margin: 0 0 16px;
+}
+
+.btn-retry {
+  padding: 10px 24px;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-retry:hover {
+  background: #333;
+}
+
+@media (max-width: 768px) {
+  .sales-table thead {
+    display: none;
+  }
+  .sales-table,
+  .sales-table tbody,
+  .sales-table tr,
+  .sales-table td {
+    display: block;
+    width: 100%;
+  }
+  .sales-table tr {
+    margin-bottom: 12px;
+    border: 1px solid #E0E0E0;
+    border-radius: 8px;
+    padding: 12px;
+  }
+  .sales-table td {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #F5F5F5;
+  }
+  .sales-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #666;
+  }
+}
